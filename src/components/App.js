@@ -9,22 +9,30 @@ console.log({ CATEGORIES, TASKS });
 
 function App() {
   const [tasks,setTasks] = useState(TASKS);
-  const [categories, setCategories] = useState("All")
-  function handleTaskSubmit()
-  function handleCategoriesSelect()
-  function filterTasks()
+  const [selectedCategory, setCategories] = useState("All")
+  function handleTaskSubmit(task) {
+    setTasks((previousTask)=>[...previousTask, task])
+  }
+  function handleCategoriesSelect(category) {
+    setCategories(category)
+  }
+  function filterTasks() {
+    return selectedCategory === "All" 
+      ? tasks 
+      : tasks.filter(task => task.category === selectedCategory);
+  }
   function handleDelete(text) {
  const updateTask = tasks.filter((task)=>task.text !== text) // give semantic meaning
 setTasks(updateTask);
 };
-
-  }
   return (
     <div className="App">
       <h2>My tasks</h2>
-      <CategoryFilter />
-      <NewTaskForm />
-      <TaskList key={TASKS}
+      <CategoryFilter onSelectCategory={handleCategoriesSelect}
+      selectedCategory={selectedCategory} categories={CATEGORIES}/>
+      <NewTaskForm onTaskFormSubmit={handleTaskSubmit}/>
+      <TaskList tasks={filterTasks()}
+      
       onDelete={handleDelete}/>
     </div>
   );
