@@ -8,15 +8,23 @@ console.log("Here's the data you're working with");
 console.log({ CATEGORIES, TASKS });
 
 function App() {
+  // pass down the task data from App to TaskList
   const [tasks,setTasks] = useState(TASKS);
+
+  // Pass the list of categories to this component from App
   const [selectedCategory, setCategories] = useState("All")
+  // If the button for "All" is selected, all the tasks should be displayed.
+
   function handleTaskSubmit(task) {
     setTasks((previousTask)=>[...previousTask, task])
   }
+
   function handleCategoriesSelect(category) {
     setCategories(category)
   }
   function filterTasks() {
+    // The list of tasks being displayed should be filtered, 
+    // so that only tasks that match the category that was clicked are displayed.
     return selectedCategory === "All" 
       ? tasks 
       : tasks.filter(task => task.category === selectedCategory);
