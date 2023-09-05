@@ -38,7 +38,7 @@ setTasks(updateTask);
       <h2>My tasks</h2>
       <CategoryFilter onSelectCategory={handleCategoriesSelect}
       selectedCategory={selectedCategory} categories={CATEGORIES}/>
-      <NewTaskForm onTaskFormSubmit={handleTaskSubmit}/>
+      <NewTaskForm onTaskFormSubmit={handleTaskSubmit} categories={CATEGORIES.filter(category => category !== "All")}/>
       <TaskList tasks={filterTasks()}
       
       onDelete={handleDelete}/>
